@@ -18,10 +18,10 @@ import java.util.Random;
 public class Main extends Application implements EventHandler<ActionEvent> {
 
     BorderPane borderPane;
-    Button button1, button2, button3, button4, button5, button6, button7, button8, button9, clear, info;
+    Button button1, button2, button3, button4, button5, button6, button7, button8, button9, clear, info, win;
     HBox hBox1, hBox2, hBox3, hBox4;
     VBox vBox1;
-    Button[] board;
+    Button[] allButtons;
     ArrayList<Button> emptyButtons;
     Random random;
     boolean winner;
@@ -98,7 +98,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         hBox3.getChildren().addAll(button7, button8, button9);
 
         //all buttons array
-        board = new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9};
+        allButtons = new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9};
         emptyButtons = new ArrayList<>(Arrays.asList(button1, button2, button3, button4, button5, button6, button7, button8, button9));
 
         //four
@@ -115,7 +115,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         info.setPrefSize(150, 50);
         info.setOnAction(this);
 
-        hBox4.getChildren().addAll(clear, info);
+        win = new Button("winner");
+        win.setPrefSize(150, 50);
+        win.setOnAction(this);
+
+        hBox4.getChildren().addAll(clear, info, win);
 
         //vbox
         vBox1 = new VBox();
@@ -158,35 +162,29 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     }
 
     private void setMove(Button btn) {
-
         if (!winner) {
             btn.setText("0");
         }
         emptyButtons.remove(btn);
         setWinnerRow();
-
         Task<Void> sleeper = new Task<>() {
+
             @Override
             protected Void call() {
                 try {
-
-                    for (Button button : board) {
+                    for (Button button : allButtons) {
                         button.setDisable(true);
                     }
-
                     Thread.sleep(1000);
-
-                    for (Button button : board) {
+                    for (Button button : allButtons) {
                         button.setDisable(false);
                     }
-
                 } catch (InterruptedException ignored) {
                 }
                 return null;
             }
         };
         sleeper.setOnSucceeded(event -> {
-
             Button computerMove = emptyButtons.get(random.nextInt(emptyButtons.size()));
             if (!winner) {
                 computerMove.setText("X");
@@ -198,103 +196,108 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     }
 
     private void setWinnerRow() {
-        if (board[0].getText().equals("X") && board[1].getText().equals("X") && board[2].getText().equals("X")) {
-            board[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[1].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        if (allButtons[0].getText().equals("X") && allButtons[1].getText().equals("X") && allButtons[2].getText().equals("X")) {
+            allButtons[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[1].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[3].getText().equals("X") && board[4].getText().equals("X") && board[5].getText().equals("X")) {
-            board[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[3].getText().equals("X") && allButtons[4].getText().equals("X") && allButtons[5].getText().equals("X")) {
+            allButtons[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[6].getText().equals("X") && board[7].getText().equals("X") && board[8].getText().equals("X")) {
-            board[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[6].getText().equals("X") && allButtons[7].getText().equals("X") && allButtons[8].getText().equals("X")) {
+            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[0].getText().equals("X") && board[3].getText().equals("X") && board[6].getText().equals("X")) {
-            board[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[0].getText().equals("X") && allButtons[3].getText().equals("X") && allButtons[6].getText().equals("X")) {
+            allButtons[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[1].getText().equals("X") && board[4].getText().equals("X") && board[7].getText().equals("X")) {
-            board[1].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[1].getText().equals("X") && allButtons[4].getText().equals("X") && allButtons[7].getText().equals("X")) {
+            allButtons[1].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[3].getText().equals("X") && board[4].getText().equals("X") && board[5].getText().equals("X")) {
-            board[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[3].getText().equals("X") && allButtons[4].getText().equals("X") && allButtons[5].getText().equals("X")) {
+            allButtons[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[6].getText().equals("X") && board[7].getText().equals("X") && board[8].getText().equals("X")) {
-            board[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[6].getText().equals("X") && allButtons[7].getText().equals("X") && allButtons[8].getText().equals("X")) {
+            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[0].getText().equals("X") && board[4].getText().equals("X") && board[8].getText().equals("X")) {
-            board[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[0].getText().equals("X") && allButtons[4].getText().equals("X") && allButtons[8].getText().equals("X")) {
+            allButtons[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[2].getText().equals("X") && board[4].getText().equals("X") && board[6].getText().equals("X")) {
-            board[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[2].getText().equals("X") && allButtons[4].getText().equals("X") && allButtons[6].getText().equals("X")) {
+            allButtons[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[2].getText().equals("0") && board[5].getText().equals("0") && board[8].getText().equals("0")) {
-            board[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[2].getText().equals("0") && allButtons[5].getText().equals("0") && allButtons[8].getText().equals("0")) {
+            allButtons[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[0].getText().equals("0") && board[1].getText().equals("0") && board[2].getText().equals("0")) {
-            board[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[1].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[0].getText().equals("0") && allButtons[1].getText().equals("0") && allButtons[2].getText().equals("0")) {
+            allButtons[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[1].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[3].getText().equals("0") && board[4].getText().equals("0") && board[5].getText().equals("0")) {
-            board[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[3].getText().equals("0") && allButtons[4].getText().equals("0") && allButtons[5].getText().equals("0")) {
+            allButtons[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[6].getText().equals("0") && board[7].getText().equals("0") && board[8].getText().equals("0")) {
-            board[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[6].getText().equals("0") && allButtons[7].getText().equals("0") && allButtons[8].getText().equals("0")) {
+            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[0].getText().equals("0") && board[3].getText().equals("0") && board[6].getText().equals("0")) {
-            board[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[0].getText().equals("0") && allButtons[3].getText().equals("0") && allButtons[6].getText().equals("0")) {
+            allButtons[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[1].getText().equals("0") && board[4].getText().equals("0") && board[7].getText().equals("0")) {
-            board[1].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[1].getText().equals("0") && allButtons[4].getText().equals("0") && allButtons[7].getText().equals("0")) {
+            allButtons[1].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[2].getText().equals("0") && board[5].getText().equals("0") && board[8].getText().equals("0")) {
-            board[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[2].getText().equals("0") && allButtons[5].getText().equals("0") && allButtons[8].getText().equals("0")) {
+            allButtons[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[0].getText().equals("0") && board[4].getText().equals("0") && board[8].getText().equals("0")) {
-            board[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[0].getText().equals("0") && allButtons[4].getText().equals("0") && allButtons[8].getText().equals("0")) {
+            allButtons[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
-        } else if (board[2].getText().equals("0") && board[4].getText().equals("0") && board[6].getText().equals("0")) {
-            board[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            board[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (allButtons[2].getText().equals("0") && allButtons[4].getText().equals("0") && allButtons[6].getText().equals("0")) {
+            allButtons[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             blockButtons();
         }
     }
 
     private void blockButtons() {
-        for (Button button : board) {
+        String title = "INFO";
+        String message = "The button's action, which is invoked whenever the button is fired. This may be due to the user clicking on the button with the mouse, or by a touch event, or by a key press, or if the developer programmatically invokes the fire() method.";
+        for (Button button : allButtons) {
             button.setDisable(true);
         }
+        win.fire();
+        win.setOnAction(e ->
+                AlertBox.display(title, message));
         winner = true;
     }
 }
