@@ -3,3 +3,8 @@ Statystyki z dnia: 23-09-2020 14:57:50
     •  Użytkownik wygrał: 3 raz(y).
     •  Komputer wygrał: 1 raz(y).
     •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 23-09-2020 15:05:03
+    •  Użytkownik wygrał: 1 raz(y).
+    •  Komputer wygrał: 1 raz(y).
+    •  Remis padł: 2 raz(y).
