@@ -7,8 +7,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -18,13 +18,14 @@ import java.util.Random;
 public class Main extends Application implements EventHandler<ActionEvent> {
 
     BorderPane borderPane;
-    Button button1, button2, button3, button4, button5, button6, button7, button8, button9, clear, info, win;
-    HBox hBox1, hBox2, hBox3, hBox4;
+    Label message;
+    Button button1, button2, button3, button4, button5, button6, button7, button8, button9, clear, info, winner;
+    HBox hBox, hBox1, hBox2, hBox3, hBox4;
     VBox vBox1;
     Button[] allButtons;
     ArrayList<Button> emptyButtons;
     Random random;
-    boolean winner;
+    boolean win, user, computer;
 
     public static void main(String[] args) {
         launch(args);
@@ -32,15 +33,27 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
     @Override
     public void start(Stage primaryStage) {
-        winner = false;
+        win = false;
+        user = false;
+        computer = false;
+        
         random = new Random();
-
         borderPane = new BorderPane();
+
+        //message
+        hBox = new HBox();
+        hBox.setSpacing(10);
+        hBox.setPadding(new Insets(50, 10, 0, 50));
+        hBox.setStyle("-fx-font-size: 15pt;");
+
+        message = new Label("Welcome!");
+
+        hBox.getChildren().addAll(message);
 
         // first
         hBox1 = new HBox();
         hBox1.setSpacing(10);
-        hBox1.setPadding(new Insets(50, 10,0, 50));
+        hBox1.setPadding(new Insets(50, 10, 0, 50));
         hBox1.setStyle("-fx-font-size: 20pt;");
 
         button1 = new Button();
@@ -60,7 +73,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         //second
         hBox2 = new HBox();
         hBox2.setSpacing(10);
-        hBox2.setPadding(new Insets(0, 10,0, 50));
+        hBox2.setPadding(new Insets(0, 10, 0, 50));
         hBox2.setStyle("-fx-font-size: 20pt;");
 
         button4 = new Button();
@@ -80,7 +93,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         //third
         hBox3 = new HBox();
         hBox3.setSpacing(10);
-        hBox3.setPadding(new Insets(0, 10,0, 50));
+        hBox3.setPadding(new Insets(0, 10, 0, 50));
         hBox3.setStyle("-fx-font-size: 20pt;");
 
         button7 = new Button();
@@ -97,15 +110,15 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
         hBox3.getChildren().addAll(button7, button8, button9);
 
-        //all buttons array
+        //all buttons arrays
         allButtons = new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9};
         emptyButtons = new ArrayList<>(Arrays.asList(button1, button2, button3, button4, button5, button6, button7, button8, button9));
 
         //four
         hBox4 = new HBox();
         hBox4.setSpacing(10);
-        hBox4.setPadding(new Insets(20, 10,0, 50));
-        hBox4.setStyle("-fx-font-size: 20pt;");
+        hBox4.setPadding(new Insets(20, 10, 0, 50));
+        hBox4.setStyle("-fx-font-size: 15pt;");
 
         clear = new Button("clear");
         clear.setPrefSize(150, 50);
@@ -115,19 +128,19 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         info.setPrefSize(150, 50);
         info.setOnAction(this);
 
-        win = new Button("winner");
-        win.setPrefSize(150, 50);
-        win.setOnAction(this);
+        winner = new Button("winner");
+        winner.setPrefSize(150, 50);
+        winner.setOnAction(this);
 
-        hBox4.getChildren().addAll(clear, info, win);
+        hBox4.getChildren().addAll(clear, info, winner);
 
         //vbox
         vBox1 = new VBox();
         vBox1.setSpacing(10);
-        vBox1.getChildren().addAll(hBox1, hBox2, hBox3, hBox4);
+        vBox1.getChildren().addAll(hBox, hBox1, hBox2, hBox3, hBox4);
         borderPane.setTop(vBox1);
 
-        Scene scene = new Scene(borderPane, 700, 700);
+        Scene scene = new Scene(borderPane, 570, 700);
 
         primaryStage.setTitle("TIC TAC TOE");
         primaryStage.setScene(scene);
@@ -135,169 +148,277 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     }
 
     @Override
-    public void handle(ActionEvent event) {
+    public void handle (ActionEvent event){
         if (event.getSource() == clear) {
-            clear.setText("change");
+            clearBoard();
         } else if (event.getSource() == info) {
-            info.setText("open");
+            InfoBox.display();
+        } else if (event.getSource() == winner) {
+            StatisticsBox.display();
         } else if (event.getSource() == button1) {
-            setMove(button1);
+            if (button1.getText().equals("") && !win) {
+                setMove(button1);
+            }
         } else if (event.getSource() == button2) {
-            setMove(button2);
+            if (button2.getText().equals("") && !win) {
+                setMove(button2);
+            }
         } else if (event.getSource() == button3) {
-            setMove(button3);
+            if (button3.getText().equals("") && !win) {
+                setMove(button3);
+            }
         } else if (event.getSource() == button4) {
-            setMove(button4);
+            if (button4.getText().equals("") && !win) {
+                setMove(button4);
+            }
         } else if (event.getSource() == button5) {
-            setMove(button5);
+            if (button5.getText().equals("") && !win) {
+                setMove(button5);
+            }
         } else if (event.getSource() == button6) {
-            setMove(button6);
+            if (button6.getText().equals("") && !win) {
+                setMove(button6);
+            }
         } else if (event.getSource() == button7) {
-            setMove(button7);
+            if (button7.getText().equals("") && !win) {
+                setMove(button7);
+            }
         } else if (event.getSource() == button8) {
-            setMove(button8);
+            if (button8.getText().equals("") && !win) {
+                setMove(button8);
+            }
         } else if (event.getSource() == button9) {
-            setMove(button9);
+            if (button9.getText().equals("") && !win) {
+                setMove(button9);
+            }
         }
     }
 
-    private void setMove(Button btn) {
-        if (!winner) {
-            btn.setText("0");
-        }
+    private void setMove (Button btn){
+        //player move
+        btn.setText("0");
         emptyButtons.remove(btn);
-        setWinnerRow();
-        Task<Void> sleeper = new Task<>() {
+        checkIfWon();
 
-            @Override
-            protected Void call() {
-                try {
-                    for (Button button : allButtons) {
-                        button.setDisable(true);
+        //computer move
+        if (!win) {
+            Task<Void> sleeper = new Task<>() {
+                @Override
+                protected Void call() {
+                    try {
+                        for (Button button : allButtons) {
+                            button.setDisable(true);
+                        }
+
+                        Thread.sleep(800);
+
+                        for (Button button : allButtons) {
+                            button.setDisable(false);
+                        }
+                    } catch (InterruptedException ignored) {
                     }
-                    Thread.sleep(1000);
-                    for (Button button : allButtons) {
-                        button.setDisable(false);
-                    }
-                } catch (InterruptedException ignored) {
+                    return null;
                 }
-                return null;
-            }
-        };
-        sleeper.setOnSucceeded(event -> {
-            Button computerMove = emptyButtons.get(random.nextInt(emptyButtons.size()));
-            if (!winner) {
-                computerMove.setText("X");
-            }
-            emptyButtons.remove(computerMove);
-            setWinnerRow();
-        });
-        new Thread(sleeper).start();
+            };
+            sleeper.setOnSucceeded(event -> {
+                if (emptyButtons.size() >= 1) {
+                    Button randomMove = emptyButtons.get(random.nextInt(emptyButtons.size()));
+                    for (Button button : allButtons) {
+                        if (button == randomMove) {
+                            button.setText("X");
+                            emptyButtons.remove(button);
+                        }
+                    }
+                    checkIfWon();
+                } else {
+                    message.setText("Draw!");
+                }
+            });
+            new Thread(sleeper).start();
+        }
     }
 
-    private void setWinnerRow() {
+    private void checkIfWon () {
         if (allButtons[0].getText().equals("X") && allButtons[1].getText().equals("X") && allButtons[2].getText().equals("X")) {
-            allButtons[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[1].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[0].setText("✔");
+            allButtons[0].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[1].setText("✔");
+            allButtons[1].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[2].setText("✔");
+            allButtons[2].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            computer = true;
+            setLabelMessage();
         } else if (allButtons[3].getText().equals("X") && allButtons[4].getText().equals("X") && allButtons[5].getText().equals("X")) {
-            allButtons[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[3].setText("✔");
+            allButtons[3].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[4].setText("✔");
+            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[5].setText("✔");
+            allButtons[5].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            computer = true;
+            setLabelMessage();
         } else if (allButtons[6].getText().equals("X") && allButtons[7].getText().equals("X") && allButtons[8].getText().equals("X")) {
-            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[6].setText("✔");
+            allButtons[6].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[7].setText("✔");
+            allButtons[7].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[8].setText("✔");
+            allButtons[8].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            computer = true;
+            setLabelMessage();
         } else if (allButtons[0].getText().equals("X") && allButtons[3].getText().equals("X") && allButtons[6].getText().equals("X")) {
-            allButtons[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[0].setText("✔");
+            allButtons[0].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[3].setText("✔");
+            allButtons[3].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[6].setText("✔");
+            allButtons[6].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            computer = true;
+            setLabelMessage();
         } else if (allButtons[1].getText().equals("X") && allButtons[4].getText().equals("X") && allButtons[7].getText().equals("X")) {
-            allButtons[1].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
-        } else if (allButtons[3].getText().equals("X") && allButtons[4].getText().equals("X") && allButtons[5].getText().equals("X")) {
-            allButtons[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
-        } else if (allButtons[6].getText().equals("X") && allButtons[7].getText().equals("X") && allButtons[8].getText().equals("X")) {
-            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
-        } else if (allButtons[0].getText().equals("X") && allButtons[4].getText().equals("X") && allButtons[8].getText().equals("X")) {
-            allButtons[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[1].setText("✔");
+            allButtons[1].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[4].setText("✔");
+            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[7].setText("✔");
+            allButtons[7].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            computer = true;
+            setLabelMessage();
+        } else if (allButtons[2].getText().equals("X") && allButtons[5].getText().equals("X") && allButtons[8].getText().equals("X")) {
+            allButtons[2].setText("✔");
+            allButtons[2].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[5].setText("✔");
+            allButtons[5].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[8].setText("✔");
+            allButtons[8].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            computer = true;
+            setLabelMessage();
         } else if (allButtons[2].getText().equals("X") && allButtons[4].getText().equals("X") && allButtons[6].getText().equals("X")) {
-            allButtons[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
-        } else if (allButtons[2].getText().equals("0") && allButtons[5].getText().equals("0") && allButtons[8].getText().equals("0")) {
-            allButtons[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[2].setText("✔");
+            allButtons[2].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[4].setText("✔");
+            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[6].setText("✔");
+            allButtons[6].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            computer = true;
+            setLabelMessage();
+        } else if (allButtons[0].getText().equals("X") && allButtons[4].getText().equals("X") && allButtons[8].getText().equals("X")) {
+            allButtons[0].setText("✔");
+            allButtons[0].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[4].setText("✔");
+            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[8].setText("✔");
+            allButtons[8].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            computer = true;
+            setLabelMessage();
         } else if (allButtons[0].getText().equals("0") && allButtons[1].getText().equals("0") && allButtons[2].getText().equals("0")) {
-            allButtons[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[1].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[0].setText("✔");
+            allButtons[0].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[1].setText("✔");
+            allButtons[1].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[2].setText("✔");
+            allButtons[2].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            user = true;
+            setLabelMessage();
         } else if (allButtons[3].getText().equals("0") && allButtons[4].getText().equals("0") && allButtons[5].getText().equals("0")) {
-            allButtons[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[3].setText("✔");
+            allButtons[3].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[4].setText("✔");
+            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[5].setText("✔");
+            allButtons[5].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            user = true;
+            setLabelMessage();
         } else if (allButtons[6].getText().equals("0") && allButtons[7].getText().equals("0") && allButtons[8].getText().equals("0")) {
-            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[6].setText("✔");
+            allButtons[6].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[7].setText("✔");
+            allButtons[7].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[8].setText("✔");
+            allButtons[8].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            user = true;
+            setLabelMessage();
         } else if (allButtons[0].getText().equals("0") && allButtons[3].getText().equals("0") && allButtons[6].getText().equals("0")) {
-            allButtons[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[3].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[0].setText("✔");
+            allButtons[0].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[3].setText("✔");
+            allButtons[3].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[6].setText("✔");
+            allButtons[6].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            user = true;
+            setLabelMessage();
         } else if (allButtons[1].getText().equals("0") && allButtons[4].getText().equals("0") && allButtons[7].getText().equals("0")) {
-            allButtons[1].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[7].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[1].setText("✔");
+            allButtons[1].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[4].setText("✔");
+            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[7].setText("✔");
+            allButtons[7].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            user = true;
+            setLabelMessage();
         } else if (allButtons[2].getText().equals("0") && allButtons[5].getText().equals("0") && allButtons[8].getText().equals("0")) {
-            allButtons[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[5].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[2].setText("✔");
+            allButtons[2].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[5].setText("✔");
+            allButtons[5].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[8].setText("✔");
+            allButtons[8].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            user = true;
+            setLabelMessage();
         } else if (allButtons[0].getText().equals("0") && allButtons[4].getText().equals("0") && allButtons[8].getText().equals("0")) {
-            allButtons[0].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[8].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[0].setText("✔");
+            allButtons[0].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[4].setText("✔");
+            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[8].setText("✔");
+            allButtons[8].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            user = true;
+            setLabelMessage();
         } else if (allButtons[2].getText().equals("0") && allButtons[4].getText().equals("0") && allButtons[6].getText().equals("0")) {
-            allButtons[2].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[4].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            allButtons[6].setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            blockButtons();
+            allButtons[2].setText("✔");
+            allButtons[2].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[4].setText("✔");
+            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            allButtons[6].setText("✔");
+            allButtons[6].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
+            win = true;
+            user = true;
+            setLabelMessage();
         }
     }
 
-    private void blockButtons() {
-        String title = "INFO";
-        String message = "The button's action, which is invoked whenever the button is fired. This may be due to the user clicking on the button with the mouse, or by a touch event, or by a key press, or if the developer programmatically invokes the fire() method.";
-        for (Button button : allButtons) {
-            button.setDisable(true);
+    private void setLabelMessage() {
+        if (user) {
+            message.setText("User Win!");
+        } else if (computer) {
+            message.setText("Computer Win!");
         }
-        win.fire();
-        win.setOnAction(e ->
-                AlertBox.display(title, message));
-        winner = true;
+    }
+
+    private void clearBoard () {
+        for (Button button : allButtons) {
+            message.setText("Welcome!");
+            button.setText("");
+            button.setStyle("-fx-text-base-color: black;");
+            emptyButtons = new ArrayList<>(Arrays.asList(button1, button2, button3, button4, button5, button6, button7, button8, button9));
+            win = false;
+            user = false;
+            computer = false;
+        }
     }
 }
