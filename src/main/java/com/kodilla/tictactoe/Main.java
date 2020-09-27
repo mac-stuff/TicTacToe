@@ -212,7 +212,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         emptyButtons.remove(btn);
         checkIfWon();
 
-
         if (!winner) {
             Task<Void> sleeper = new Task<>() {
                 @Override
@@ -252,167 +251,48 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     }
 
     private void checkIfWon () {
-        if (allButtons[0].getText().equals("✗") && allButtons[1].getText().equals("✗") && allButtons[2].getText().equals("✗")) {
-            allButtons[0].setText("✔");
-            allButtons[0].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[1].setText("✔");
-            allButtons[1].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[2].setText("✔");
-            allButtons[2].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            computer = true;
-            setLabelMessage();
-        } else if (allButtons[3].getText().equals("✗") && allButtons[4].getText().equals("✗") && allButtons[5].getText().equals("✗")) {
-            allButtons[3].setText("✔");
-            allButtons[3].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[4].setText("✔");
-            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[5].setText("✔");
-            allButtons[5].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            computer = true;
-            setLabelMessage();
-        } else if (allButtons[6].getText().equals("✗") && allButtons[7].getText().equals("✗") && allButtons[8].getText().equals("✗")) {
-            allButtons[6].setText("✔");
-            allButtons[6].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[7].setText("✔");
-            allButtons[7].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[8].setText("✔");
-            allButtons[8].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            computer = true;
-            setLabelMessage();
-        } else if (allButtons[0].getText().equals("✗") && allButtons[3].getText().equals("✗") && allButtons[6].getText().equals("✗")) {
-            allButtons[0].setText("✔");
-            allButtons[0].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[3].setText("✔");
-            allButtons[3].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[6].setText("✔");
-            allButtons[6].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            computer = true;
-            setLabelMessage();
-        } else if (allButtons[1].getText().equals("✗") && allButtons[4].getText().equals("✗") && allButtons[7].getText().equals("✗")) {
-            allButtons[1].setText("✔");
-            allButtons[1].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[4].setText("✔");
-            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[7].setText("✔");
-            allButtons[7].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            computer = true;
-            setLabelMessage();
-        } else if (allButtons[2].getText().equals("✗") && allButtons[5].getText().equals("✗") && allButtons[8].getText().equals("✗")) {
-            allButtons[2].setText("✔");
-            allButtons[2].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[5].setText("✔");
-            allButtons[5].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[8].setText("✔");
-            allButtons[8].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            computer = true;
-            setLabelMessage();
-        } else if (allButtons[2].getText().equals("✗") && allButtons[4].getText().equals("✗") && allButtons[6].getText().equals("✗")) {
-            allButtons[2].setText("✔");
-            allButtons[2].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[4].setText("✔");
-            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[6].setText("✔");
-            allButtons[6].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            computer = true;
-            setLabelMessage();
-        } else if (allButtons[0].getText().equals("✗") && allButtons[4].getText().equals("✗") && allButtons[8].getText().equals("✗")) {
-            allButtons[0].setText("✔");
-            allButtons[0].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[4].setText("✔");
-            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[8].setText("✔");
-            allButtons[8].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            computer = true;
-            setLabelMessage();
-        } else if (allButtons[0].getText().equals("๐") && allButtons[1].getText().equals("๐") && allButtons[2].getText().equals("๐")) {
-            allButtons[0].setText("✔");
-            allButtons[0].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[1].setText("✔");
-            allButtons[1].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[2].setText("✔");
-            allButtons[2].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            user = true;
-            setLabelMessage();
-        } else if (allButtons[3].getText().equals("๐") && allButtons[4].getText().equals("๐") && allButtons[5].getText().equals("๐")) {
-            allButtons[3].setText("✔");
-            allButtons[3].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[4].setText("✔");
-            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[5].setText("✔");
-            allButtons[5].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            user = true;
-            setLabelMessage();
-        } else if (allButtons[6].getText().equals("๐") && allButtons[7].getText().equals("๐") && allButtons[8].getText().equals("๐")) {
-            allButtons[6].setText("✔");
-            allButtons[6].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[7].setText("✔");
-            allButtons[7].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[8].setText("✔");
-            allButtons[8].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            user = true;
-            setLabelMessage();
-        } else if (allButtons[0].getText().equals("๐") && allButtons[3].getText().equals("๐") && allButtons[6].getText().equals("๐")) {
-            allButtons[0].setText("✔");
-            allButtons[0].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[3].setText("✔");
-            allButtons[3].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[6].setText("✔");
-            allButtons[6].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            user = true;
-            setLabelMessage();
-        } else if (allButtons[1].getText().equals("๐") && allButtons[4].getText().equals("๐") && allButtons[7].getText().equals("๐")) {
-            allButtons[1].setText("✔");
-            allButtons[1].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[4].setText("✔");
-            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[7].setText("✔");
-            allButtons[7].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            user = true;
-            setLabelMessage();
-        } else if (allButtons[2].getText().equals("๐") && allButtons[5].getText().equals("๐") && allButtons[8].getText().equals("๐")) {
-            allButtons[2].setText("✔");
-            allButtons[2].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[5].setText("✔");
-            allButtons[5].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[8].setText("✔");
-            allButtons[8].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            user = true;
-            setLabelMessage();
-        } else if (allButtons[0].getText().equals("๐") && allButtons[4].getText().equals("๐") && allButtons[8].getText().equals("๐")) {
-            allButtons[0].setText("✔");
-            allButtons[0].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[4].setText("✔");
-            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[8].setText("✔");
-            allButtons[8].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            user = true;
-            setLabelMessage();
-        } else if (allButtons[2].getText().equals("๐") && allButtons[4].getText().equals("๐") && allButtons[6].getText().equals("๐")) {
-            allButtons[2].setText("✔");
-            allButtons[2].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[4].setText("✔");
-            allButtons[4].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            allButtons[6].setText("✔");
-            allButtons[6].setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
-            winner = true;
-            user = true;
-            setLabelMessage();
+        checkIfButtonsHaveSameMark(0,1,2, "✗");
+        checkIfButtonsHaveSameMark(3,4,5, "✗");
+        checkIfButtonsHaveSameMark(6,7,8, "✗");
+        checkIfButtonsHaveSameMark(0,3,6, "✗");
+        checkIfButtonsHaveSameMark(1,4,7, "✗");
+        checkIfButtonsHaveSameMark(2,5,8, "✗");
+        checkIfButtonsHaveSameMark(2,4,6, "✗");
+        checkIfButtonsHaveSameMark(0,4,8, "✗");
+
+        checkIfButtonsHaveSameMark(0,1,2, "๐");
+        checkIfButtonsHaveSameMark(3,4,5, "๐");
+        checkIfButtonsHaveSameMark(6,7,8, "๐");
+        checkIfButtonsHaveSameMark(0,3,6, "๐");
+        checkIfButtonsHaveSameMark(1,4,7, "๐");
+        checkIfButtonsHaveSameMark(2,5,8, "๐");
+        checkIfButtonsHaveSameMark(2,4,6, "๐");
+        checkIfButtonsHaveSameMark(0,4,8, "๐");
+    }
+
+    private void checkIfButtonsHaveSameMark(int firstButtonIndex, int secondButtonIndex, int thirdButtonIndex, String sign) {
+        if (allButtons[firstButtonIndex].getText().equals(sign) && allButtons[secondButtonIndex].getText().equals(sign)
+                && allButtons[thirdButtonIndex].getText().equals(sign)) {
+            markIfWon(firstButtonIndex, secondButtonIndex, thirdButtonIndex, sign);
         }
+    }
+
+    private void markIfWon(int firstButtonIndex, int secondButtonIndex, int thirdButtonIndex, String sign) {
+        setButtonText(allButtons[firstButtonIndex]);
+        setButtonText(allButtons[secondButtonIndex]);
+        setButtonText(allButtons[thirdButtonIndex]);
+        winner = true;
+        if (sign.equals("๐")) {
+            user = true;
+        } else {
+            computer = true;
+        }
+        setLabelMessage();
+    }
+
+    private void setButtonText(Button button) {
+        button.setText("✔");
+        button.setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
     }
 
     private void setLabelMessage() {
