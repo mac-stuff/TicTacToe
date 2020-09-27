@@ -11,11 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -24,10 +20,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
     private Label message;
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, clear, info, statistics;
+    private HBox hBoxText, hBox1, hBox2, hBox3, hBox4;
+    private VBox vBox;
     private Button[] allButtons;
     private ArrayList<Button> emptyButtons;
     private Random random;
-    boolean winner, user, computer;
+    private boolean winner, user, computer;
     private int userWonCounter, computerWonCounter, drawCounter;
 
     public static void main(String[] args) {
@@ -37,120 +35,128 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     @Override
     public void start(Stage primaryStage) {
 
-        setInitialValues();
+        setVariablesInitialValues();
+        setButtonsInitialValues();
+        setBoxesInitialValues();
+        setLabelInitialValue();
 
         BorderPane borderPane = new BorderPane();
 
-        HBox hBox = new HBox();
-        hBox.setSpacing(10);
-        hBox.setPadding(new Insets(30, 10, 0, 50));
-        hBox.setStyle("-fx-font-size: 15pt;");
+        sethBoxMenuSettings(hBoxText);
+        hBoxText.getChildren().add(message);
 
-        message = new Label("Welcome!");
-        hBox.getChildren().addAll(message);
-
-        HBox hBox1 = new HBox();
-        hBox1.setSpacing(10);
-        hBox1.setPadding(new Insets(50, 10, 0, 50));
-        hBox1.setStyle("-fx-font-size: 40pt;");
-
-        button1 = new Button();
-        button1.setPrefSize(150, 150);
-        button1.setOnAction(this);
-
-        button2 = new Button();
-        button2.setPrefSize(150, 150);
-        button2.setOnAction(this);
-
-        button3 = new Button();
-        button3.setPrefSize(150, 150);
-        button3.setOnAction(this);
-
+        setHBoxSettings(hBox1);
+        setButtonSettings(button1);
+        setButtonSettings(button2);
+        setButtonSettings(button3);
         hBox1.getChildren().addAll(button1, button2, button3);
 
-        HBox hBox2 = new HBox();
-        hBox2.setSpacing(10);
-        hBox2.setPadding(new Insets(0, 10, 0, 50));
-        hBox2.setStyle("-fx-font-size: 40pt;");
-
-        button4 = new Button();
-        button4.setPrefSize(150, 150);
-        button4.setOnAction(this);
-
-        button5 = new Button();
-        button5.setPrefSize(150, 150);
-        button5.setOnAction(this);
-
-        button6 = new Button();
-        button6.setPrefSize(150, 150);
-        button6.setOnAction(this);
-
+        setHBoxSettings(hBox2);
+        setButtonSettings(button4);
+        setButtonSettings(button5);
+        setButtonSettings(button6);
         hBox2.getChildren().addAll(button4, button5, button6);
 
-        HBox hBox3 = new HBox();
-        hBox3.setSpacing(10);
-        hBox3.setPadding(new Insets(0, 10, 0, 50));
-        hBox3.setStyle("-fx-font-size: 40pt;");
-
-        button7 = new Button();
-        button7.setPrefSize(150, 150);
-        button7.setOnAction(this);
-
-        button8 = new Button();
-        button8.setPrefSize(150, 150);
-        button8.setOnAction(this);
-
-        button9 = new Button();
-        button9.setPrefSize(150, 150);
-        button9.setOnAction(this);
-
+        setHBoxSettings(hBox3);
+        setButtonSettings(button7);
+        setButtonSettings(button8);
+        setButtonSettings(button9);
         hBox3.getChildren().addAll(button7, button8, button9);
+
+        sethBoxMenuSettings(hBox4);
+        setButtonMenuSettings(clear);
+        setButtonMenuSettings(info);
+        setButtonMenuSettings(statistics);
+        hBox4.getChildren().addAll(clear, info, statistics);
+
+        vBox.setSpacing(10);
+        vBox.getChildren().addAll(hBoxText, hBox1, hBox2, hBox3, hBox4);
+
+        borderPane.setTop(vBox);
+        Scene scene = new Scene(borderPane, 570, 700);
+        primaryStage.setScene(scene);
+        setPrimaryStageSettings(primaryStage);
 
         allButtons = new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9};
         emptyButtons = new ArrayList<>(Arrays.asList(button1, button2, button3, button4, button5, button6, button7, button8, button9));
+    }
 
-        HBox hBox4 = new HBox();
-        hBox4.setSpacing(10);
-        hBox4.setPadding(new Insets(20, 10, 0, 50));
-        hBox4.setStyle("-fx-font-size: 15pt;");
+    private void setVariablesInitialValues() {
+        winner = false;
+        user = false;
+        computer = false;
+        userWonCounter = 0;
+        computerWonCounter = 0;
+        drawCounter = 0;
+        random = new Random();
+    }
 
+    private void setButtonsInitialValues() {
+        button1 = new Button();
+        button2 = new Button();
+        button3 = new Button();
+        button4 = new Button();
+        button5 = new Button();
+        button6 = new Button();
+        button7 = new Button();
+        button8 = new Button();
+        button9 = new Button();
         clear = new Button("clear");
-        clear.setPrefSize(150, 50);
-        clear.setOnAction(this);
-
         info = new Button("info");
-        info.setPrefSize(150, 50);
-        info.setOnAction(this);
-
         statistics = new Button("statistics");
-        statistics.setPrefSize(150, 50);
-        statistics.setOnAction(this);
+    }
 
-        hBox4.getChildren().addAll(clear, info, statistics);
+    private void setBoxesInitialValues() {
+        vBox = new VBox();
+        hBoxText = new HBox();
+        hBox1 = new HBox();
+        hBox2 = new HBox();
+        hBox3 = new HBox();
+        hBox4 = new HBox();
+    }
 
-        VBox vBox1 = new VBox();
-        vBox1.setSpacing(10);
-        vBox1.getChildren().addAll(hBox, hBox1, hBox2, hBox3, hBox4);
-        borderPane.setTop(vBox1);
+    private void setLabelInitialValue() {
+        message = new Label("Welcome!");
+    }
 
-        Scene scene = new Scene(borderPane, 570, 700);
+    private void setHBoxSettings(HBox hBox) {
+        hBox.setSpacing(10);
+        hBox.setPadding(new Insets(0, 10, 0, 50));
+        hBox.setStyle("-fx-font-size: 40pt;");
+    }
 
+    private void sethBoxMenuSettings(HBox hBox) {
+        hBox.setSpacing(10);
+        hBox.setPadding(new Insets(30, 10, 30, 50));
+        hBox.setStyle("-fx-font-size: 15pt;");
+    }
+
+    private void setButtonSettings(Button button) {
+        button.setPrefSize(150, 150);
+        button.setOnAction(this);
+    }
+
+    private void setButtonMenuSettings(Button button) {
+        button.setPrefSize(150, 50);
+        button.setOnAction(this);
+    }
+
+    private void setPrimaryStageSettings(Stage primaryStage) {
+        primaryStage.setTitle("TIC TAC TOE");
+        primaryStage.setOpacity(0.98);
+        primaryStage.resizableProperty().setValue(false);
+        primaryStage.show();
         primaryStage.setOnCloseRequest(event -> {
             try {
-                saveToFile();
+                ResultRecorder.saveToFile(userWonCounter, computerWonCounter, drawCounter);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        primaryStage.setTitle("TIC TAC TOE");
-        primaryStage.setScene(scene);
-        primaryStage.setOpacity(0.98);
-        primaryStage.resizableProperty().setValue(false);
-        primaryStage.show();
     }
 
     @Override
-    public void handle (ActionEvent event){
+    public void handle(ActionEvent event){
         if (event.getSource() == clear) {
             clearBoard();
         } else if (event.getSource() == info) {
@@ -195,18 +201,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
             }
         }
     }
-
-    private void setInitialValues() {
-        random = new Random();
-
-        winner = false;
-        user = false;
-        computer = false;
-        userWonCounter = 0;
-        computerWonCounter = 0;
-        drawCounter = 0;
-    }
-
+    
     private void setMove (Button btn) {
         btn.setText("๐");
         emptyButtons.remove(btn);
@@ -278,9 +273,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     }
 
     private void markIfWon(int firstButtonIndex, int secondButtonIndex, int thirdButtonIndex, String sign) {
-        setButtonText(allButtons[firstButtonIndex]);
-        setButtonText(allButtons[secondButtonIndex]);
-        setButtonText(allButtons[thirdButtonIndex]);
+        setButtonMessage(allButtons[firstButtonIndex]);
+        setButtonMessage(allButtons[secondButtonIndex]);
+        setButtonMessage(allButtons[thirdButtonIndex]);
         winner = true;
         if (sign.equals("๐")) {
             user = true;
@@ -290,7 +285,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         setLabelMessage();
     }
 
-    private void setButtonText(Button button) {
+    private void setButtonMessage(Button button) {
         button.setText("✔");
         button.setStyle("-fx-text-base-color: green; -fx-font-size: 50pt;");
     }
@@ -315,21 +310,5 @@ public class Main extends Application implements EventHandler<ActionEvent> {
             user = false;
             computer = false;
         }
-    }
-
-    private void saveToFile() throws IOException {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String formattedDate = localDateTime.format(dateTimeFormatter);
-        String message = "Statystyki z dnia: " + formattedDate + "\n" +
-                "    •  Użytkownik wygrał: " + userWonCounter + " raz(y).\n" +
-                "    •  Komputer wygrał: " + computerWonCounter + " raz(y).\n" +
-                "    •  Remis padł: " + drawCounter + " raz(y).\n";
-
-        String fileName = "statistics.txt";
-        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-        writer.append('\n');
-        writer.append(message);
-        writer.close();
     }
 }
