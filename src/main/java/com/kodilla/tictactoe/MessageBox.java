@@ -8,17 +8,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-public class StatisticsBox {
+public class MessageBox {
 
-    public static void display(int userWonCounter, int computerWonCounter, int drawCounter) {
-
-        String message = "Statystyki\n\n\n" +
-                "    •  Użytkownik wygrał: " + userWonCounter + " raz(y).\n" +
-                "    •  Komputer wygrał: " + computerWonCounter + " raz(y).\n" +
-                "    •  Remis padł: " + drawCounter + " raz(y).\n";
+    public static void display(String message, String text) {
 
         Stage stage = new Stage();
-        stage.setTitle("STATISTICS");
+        stage.setTitle(text);
         HBox hBox = new HBox();
         hBox.setSpacing(10);
         hBox.setPadding(new Insets(50, 50, 50, 50));
@@ -26,13 +21,13 @@ public class StatisticsBox {
 
         Label label = new Label(message);
         label.setWrapText(true);
-        label.setTextAlignment(TextAlignment.LEFT);
+        label.setTextAlignment(TextAlignment.JUSTIFY);
 
         hBox.getChildren().addAll(label);
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(hBox);
 
-        Scene scene = new Scene(borderPane, 550, 350);
+        Scene scene = new Scene(borderPane, 550, 650);
         stage.setScene(scene);
         stage.resizableProperty().setValue(false);
         stage.show();

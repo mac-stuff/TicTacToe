@@ -1,29 +1,3 @@
-
-Statystyki z dnia: 23-09-2020 14:57:50
-    •  Użytkownik wygrał: 3 raz(y).
-    •  Komputer wygrał: 1 raz(y).
-    •  Remis padł: 0 raz(y).
-
-Statystyki z dnia: 23-09-2020 15:05:03
-    •  Użytkownik wygrał: 1 raz(y).
-    •  Komputer wygrał: 1 raz(y).
-    •  Remis padł: 2 raz(y).
-
-Statystyki z dnia: 27-09-2020 13:45:43
-    •  Użytkownik wygrał: 0 raz(y).
-    •  Komputer wygrał: 0 raz(y).
-    •  Remis padł: 0 raz(y).
-
-Statystyki z dnia: 27-09-2020 13:46:28
-    •  Użytkownik wygrał: 0 raz(y).
-    •  Komputer wygrał: 0 raz(y).
-    •  Remis padł: 1 raz(y).
-
-Statystyki z dnia: 27-09-2020 13:55:43
-    •  Użytkownik wygrał: 1 raz(y).
-    •  Komputer wygrał: 0 raz(y).
-    •  Remis padł: 0 raz(y).
-
 Statystyki z dnia: 27-09-2020 13:56:07
     •  Użytkownik wygrał: 0 raz(y).
     •  Komputer wygrał: 0 raz(y).
@@ -167,4 +141,79 @@ Statystyki z dnia: 27-09-2020 17:52:02
 Statystyki z dnia: 27-09-2020 18:06:05
     •  Użytkownik wygrał: 1 raz(y).
     •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 19:38:55
+    •  Użytkownik wygrał: 1 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 19:57:52
+    •  Użytkownik wygrał: 1 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 20:21:59
+    •  Użytkownik wygrał: 0 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 20:26:28
+    •  Użytkownik wygrał: 1 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 20:49:37
+    •  Użytkownik wygrał: 2 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 20:50:17
+    •  Użytkownik wygrał: 1 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 20:51:48
+    •  Użytkownik wygrał: 2 raz(y).
+    •  Komputer wygrał: 1 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 21:02:29
+    •  Użytkownik wygrał: 3 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 21:04:36
+    •  Użytkownik wygrał: 2 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 1 raz(y).
+
+Statystyki z dnia: 29-09-2020 21:15:01
+    •  Użytkownik wygrał: 1 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 21:18:14
+    •  Użytkownik wygrał: 0 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 21:18:32
+    •  Użytkownik wygrał: 0 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 21:19:32
+    •  Użytkownik wygrał: 3 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 21:23:02
+    •  Użytkownik wygrał: 0 raz(y).
+    •  Komputer wygrał: 0 raz(y).
+    •  Remis padł: 0 raz(y).
+
+Statystyki z dnia: 29-09-2020 21:25:59
+    •  Użytkownik wygrał: 2 raz(y).
+    •  Komputer wygrał: 1 raz(y).
     •  Remis padł: 0 raz(y).

@@ -19,14 +19,15 @@ import java.util.Random;
 public class Main extends Application implements EventHandler<ActionEvent> {
 
     private Label message;
-    private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, clear, info, statistics;
-    private HBox hBoxText, hBox1, hBox2, hBox3, hBox4;
-    private VBox vBox;
     private Button[] allButtons;
     private ArrayList<Button> emptyButtons;
+    private Button clear, info, statistics;
+    private HBox hBoxText, hBox1, hBox2, hBox3, hBox4;
+    private VBox vBox;
     private Random random;
-    private boolean winner, user, computer;
-    private int userWonCounter, computerWonCounter, drawCounter;
+    private boolean isWinner, isUserWin, isComputerWin;
+    private int userCounter, computerCounter, drawCounter;
+    private String statisticsMessage, infoMessage;
 
     public static void main(String[] args) {
         launch(args);
@@ -42,65 +43,42 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
         BorderPane borderPane = new BorderPane();
 
-        sethBoxMenuSettings(hBoxText);
+        setHBoxMenuSettings(hBoxText);
         hBoxText.getChildren().add(message);
 
-        setHBoxSettings(hBox1);
-        setButtonSettings(button1);
-        setButtonSettings(button2);
-        setButtonSettings(button3);
-        hBox1.getChildren().addAll(button1, button2, button3);
-
-        setHBoxSettings(hBox2);
-        setButtonSettings(button4);
-        setButtonSettings(button5);
-        setButtonSettings(button6);
-        hBox2.getChildren().addAll(button4, button5, button6);
-
-        setHBoxSettings(hBox3);
-        setButtonSettings(button7);
-        setButtonSettings(button8);
-        setButtonSettings(button9);
-        hBox3.getChildren().addAll(button7, button8, button9);
-
-        sethBoxMenuSettings(hBox4);
-        setButtonMenuSettings(clear);
-        setButtonMenuSettings(info);
-        setButtonMenuSettings(statistics);
-        hBox4.getChildren().addAll(clear, info, statistics);
+        addButtonsInToHBox(hBox1, allButtons[0], allButtons[1], allButtons[2]);
+        addButtonsInToHBox(hBox2, allButtons[3], allButtons[4], allButtons[5]);
+        addButtonsInToHBox(hBox3, allButtons[6], allButtons[7], allButtons[8]);
+        addMenuButtonsInToHBox(hBox4, clear, info, statistics);
 
         vBox.setSpacing(10);
         vBox.getChildren().addAll(hBoxText, hBox1, hBox2, hBox3, hBox4);
 
         borderPane.setTop(vBox);
+
         Scene scene = new Scene(borderPane, 570, 700);
         primaryStage.setScene(scene);
         setPrimaryStageSettings(primaryStage);
-
-        allButtons = new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9};
-        emptyButtons = new ArrayList<>(Arrays.asList(button1, button2, button3, button4, button5, button6, button7, button8, button9));
     }
 
     private void setVariablesInitialValues() {
-        winner = false;
-        user = false;
-        computer = false;
-        userWonCounter = 0;
-        computerWonCounter = 0;
+        isWinner = false;
+        isUserWin = false;
+        isComputerWin = false;
+        userCounter = 0;
+        computerCounter = 0;
         drawCounter = 0;
         random = new Random();
     }
 
     private void setButtonsInitialValues() {
-        button1 = new Button();
-        button2 = new Button();
-        button3 = new Button();
-        button4 = new Button();
-        button5 = new Button();
-        button6 = new Button();
-        button7 = new Button();
-        button8 = new Button();
-        button9 = new Button();
+        allButtons = new Button[9];
+        for (int i = 0; i < allButtons.length; i++) {
+            allButtons[i] = new Button();
+        }
+
+        emptyButtons = new ArrayList<>(Arrays.asList(allButtons));
+
         clear = new Button("clear");
         info = new Button("info");
         statistics = new Button("statistics");
@@ -125,7 +103,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         hBox.setStyle("-fx-font-size: 40pt;");
     }
 
-    private void sethBoxMenuSettings(HBox hBox) {
+    private void setHBoxMenuSettings(HBox hBox) {
         hBox.setSpacing(10);
         hBox.setPadding(new Insets(30, 10, 30, 50));
         hBox.setStyle("-fx-font-size: 15pt;");
@@ -148,56 +126,68 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         primaryStage.show();
         primaryStage.setOnCloseRequest(event -> {
             try {
-                ResultRecorder.saveToFile(userWonCounter, computerWonCounter, drawCounter);
+                ResultRecorder.saveToFile(userCounter, computerCounter, drawCounter);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
 
+    private void setStatisticsMessages() {
+        statisticsMessage = "Statystyki\n\n\n" +
+                "    •  Użytkownik wygrał: " + userCounter + " raz(y).\n" +
+                "    •  Komputer wygrał: " + computerCounter + " raz(y).\n" +
+                "    •  Remis padł: " + drawCounter + " raz(y).\n";
+    }
+
+    private void setInfoMessages() {
+        infoMessage = "Zasady i przebieg gry\n\n\n" +
+                "    •  Kółko i krzyżyk to gra strategiczna, rozgrywana przez dwóch graczy. W naszej grze bierze udział gracz oraz komputer. \n" +
+                "    •  Gracze obejmują pola na przemian, dążąc do objęcia trzech pól w jednej linii, przy jednoczesnym uniemożliwieniu tego samego przeciwnikowi.\n" +
+                "    •  Pole może być objęte przez jednego gracza i nie zmienia swego właściciela przez cały przebieg gry. \n" +
+                "    •  Planszą gry jest tablica gry, o wymiarach 3x3, na której gracz, za pomocą myszki, wstawia znak kółka w wybranym polu, po ruchu gracza następuje ruch komputera, komputer wstawia znak krzyżyka, w wybranym polu.\n" +
+                "    •  Po zakończonej rozgrywce u góry planszy wyświetlane są statystyki, planszę można wyczyścić celem rozpoczęcia nowej gry, za pomocą klawisza ‘clean’.\n" +
+                "    •  Zasady gry zostaną wyświetlone po kliknięciu myszką w klawisz ‘info’\n" +
+                "    •  Statystyki gry zostaną wyświetlone po kliknięciu myszką w klawisz ‘winner’. Ponadto, statystyki gry zapisują się automatycznie po każdej rozgrywce do pliku ‘statistic.txt’.\n\n Miłej zabawy!!";
+    }
+
+    private void addButtonsInToHBox(HBox hBox, Button button1, Button button2, Button button3) {
+        setHBoxSettings(hBox);
+        setButtonSettings(button1);
+        setButtonSettings(button2);
+        setButtonSettings(button3);
+        hBox.getChildren().addAll(button1, button2, button3);
+    }
+
+    private void addMenuButtonsInToHBox(HBox hBox, Button button1, Button button2, Button button3) {
+        setHBoxMenuSettings(hBox);
+        setButtonMenuSettings(button1);
+        setButtonMenuSettings(button2);
+        setButtonMenuSettings(button3);
+        hBox.getChildren().addAll(button1, button2, button3);
+    }
+
+    private void checkIfTheSelectedFieldIsEmpty(Button button) {
+        if (button.getText().equals("") && !isWinner) {
+            setMove(button);
+        }
+    }
+
     @Override
-    public void handle(ActionEvent event){
+    public void handle(ActionEvent event) {
         if (event.getSource() == clear) {
             clearBoard();
         } else if (event.getSource() == info) {
-            InfoBox.display();
+            setInfoMessages();
+            MessageBox.display(infoMessage, "INFO");
         } else if (event.getSource() == statistics) {
-            StatisticsBox.display(userWonCounter, computerWonCounter, drawCounter);
-        } else if (event.getSource() == button1) {
-            if (button1.getText().equals("") && !winner) {
-                setMove(button1);
-            }
-        } else if (event.getSource() == button2) {
-            if (button2.getText().equals("") && !winner) {
-                setMove(button2);
-            }
-        } else if (event.getSource() == button3) {
-            if (button3.getText().equals("") && !winner) {
-                setMove(button3);
-            }
-        } else if (event.getSource() == button4) {
-            if (button4.getText().equals("") && !winner) {
-                setMove(button4);
-            }
-        } else if (event.getSource() == button5) {
-            if (button5.getText().equals("") && !winner) {
-                setMove(button5);
-            }
-        } else if (event.getSource() == button6) {
-            if (button6.getText().equals("") && !winner) {
-                setMove(button6);
-            }
-        } else if (event.getSource() == button7) {
-            if (button7.getText().equals("") && !winner) {
-                setMove(button7);
-            }
-        } else if (event.getSource() == button8) {
-            if (button8.getText().equals("") && !winner) {
-                setMove(button8);
-            }
-        } else if (event.getSource() == button9) {
-            if (button9.getText().equals("") && !winner) {
-                setMove(button9);
+            setStatisticsMessages();
+            MessageBox.display(statisticsMessage, "STATISTICS");
+        } else {
+            for (Button button : allButtons) {
+                if (event.getSource() == button) {
+                    checkIfTheSelectedFieldIsEmpty(button);
+                }
             }
         }
     }
@@ -207,7 +197,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         emptyButtons.remove(btn);
         checkIfWon();
 
-        if (!winner) {
+        if (!isWinner) {
             Task<Void> sleeper = new Task<>() {
                 @Override
                 protected Void call() {
@@ -276,11 +266,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         setButtonMessage(allButtons[firstButtonIndex]);
         setButtonMessage(allButtons[secondButtonIndex]);
         setButtonMessage(allButtons[thirdButtonIndex]);
-        winner = true;
+        isWinner = true;
         if (sign.equals("๐")) {
-            user = true;
+            isUserWin = true;
         } else {
-            computer = true;
+            isComputerWin = true;
         }
         setLabelMessage();
     }
@@ -291,11 +281,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     }
 
     private void setLabelMessage() {
-        if (user) {
-            userWonCounter++;
+        if (isUserWin) {
+            userCounter++;
             message.setText("User win!");
-        } else if (computer) {
-            computerWonCounter++;
+        } else if (isComputerWin) {
+            computerCounter++;
             message.setText("Computer win!");
         }
     }
@@ -305,10 +295,10 @@ public class Main extends Application implements EventHandler<ActionEvent> {
             message.setText("Welcome!");
             button.setText("");
             button.setStyle("-fx-text-base-color: black;");
-            emptyButtons = new ArrayList<>(Arrays.asList(button1, button2, button3, button4, button5, button6, button7, button8, button9));
-            winner = false;
-            user = false;
-            computer = false;
+            emptyButtons = new ArrayList<>(Arrays.asList(allButtons));
+            isWinner = false;
+            isUserWin = false;
+            isComputerWin = false;
         }
     }
 }
